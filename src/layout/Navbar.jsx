@@ -1,13 +1,15 @@
 import React from "react";
+import { Link, withRouter, useLocation } from "react-router-dom";
 
+function Navbar() {
 
-export default function Navbar() {
+  let loc=useLocation()
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/">
-        Navbar w/ text
-      </a>
+      <Link className="navbar-brand" to="/">
+        Aplicación de prueba
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -21,24 +23,21 @@ export default function Navbar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <a className="nav-link" href="/">
+          <li className={loc.pathname === "/" ? "nav-item active" : "nav-item" }>
+            <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
-            </a>
+            </Link>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">
-              Features
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/">
-              Pricing
-            </a>
+          <li className={loc.pathname === "/about" ? "nav-item active" : "nav-item" }>
+            <Link className="nav-link" to="/about">
+              About
+            </Link>
           </li>
         </ul>
-        <span className="navbar-text">Navbar text with an inline element</span>
+        <span className="navbar-text">ZDLT</span>
       </div>
     </nav>
   );
 }
+
+export default withRouter(Navbar);
