@@ -1,3 +1,9 @@
+Aplicación base en React.js
+- Múltiples componentes funcionales
+- Consume REST API (axios)
+- Varias páginas (router)
+- Bootstrap 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
