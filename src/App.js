@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import Navbar from "./layout/Navbar.jsx";
+import JokeList from "./components/JokeList.jsx";
+import SearchForm from "./components/SearchForm.jsx";
+
+import "./main.scss";
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("init_");
+  const [jokes, setJokes] = useState([]);
+
+  useEffect(() => {
+    if (searchTerm !== "init_")
+      axios({
+        method: "get",
+        url: "https://icanhazdadjoke.com/search",
+        headers: {
+          Accept: "application/json",
+        },
+        params: {
+          term: searchTerm,
+        },
+      }).then((response) => {
+        console.log(response.data.results);
+        setJokes(response.data.results);
+      });
+  }, [searchTerm]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <div className="container">
+        <SearchForm handleSearchTerm={(input)=>setSearchTerm(input)} />
+        <JokeList jokes={jokes}></JokeList>
+      </div>
+    </>
   );
 }
 
